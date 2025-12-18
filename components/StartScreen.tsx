@@ -1,5 +1,5 @@
 import React from 'react';
-import { Zap } from 'lucide-react';
+import { ChevronRight } from 'lucide-react';
 
 interface StartScreenProps {
   onStart: () => void;
@@ -7,51 +7,78 @@ interface StartScreenProps {
 
 const StartScreen: React.FC<StartScreenProps> = ({ onStart }) => {
   return (
-    <div className="flex flex-col items-center justify-center min-h-[60vh] text-center space-y-8 animate-fade-in font-sans">
-      <div className="relative mb-4">
-        <div className="absolute -inset-8 bg-inpsy-cyan/10 blur-2xl rounded-full"></div>
-        {/* Logo Image - Needs logo.png in public folder */}
-        <img 
-          src="/logo.png" 
-          alt="InPsytech Logo" 
-          className="relative z-10 w-64 md:w-80 h-auto drop-shadow-neon object-contain"
-          onError={(e) => {
-            // Fallback if image not found
-            e.currentTarget.style.display = 'none';
-            const fallback = document.getElementById('logo-fallback');
-            if (fallback) fallback.style.display = 'block';
-          }}
-        />
-        {/* Fallback Text if Image Fails */}
-        <div id="logo-fallback" className="hidden">
-           <h1 className="text-4xl md:text-5xl font-bold text-inpsy-cyan drop-shadow-neon">
+    <div className="flex flex-col h-[85vh] w-full max-w-md mx-auto justify-between font-sans animate-fade-in relative">
+      
+      {/* Top Section: Branding */}
+      <div className="flex-1 flex flex-col items-center justify-center space-y-10">
+        
+        {/* App Icon Container / Logo */}
+        <div className="relative group">
+           <div className="absolute -inset-1 bg-gradient-to-tr from-inpsy-cyan to-blue-600 rounded-[2rem] blur opacity-40 group-hover:opacity-60 transition duration-500"></div>
+           <div className="relative w-40 h-40 bg-inpsy-dark/80 backdrop-blur-xl rounded-[2rem] border border-white/10 flex items-center justify-center shadow-2xl overflow-hidden p-6">
+              <img 
+                src="/logo.png" 
+                alt="InPsytech Logo" 
+                className="w-full h-full object-contain drop-shadow-lg"
+                onError={(e) => {
+                  e.currentTarget.style.display = 'none';
+                  const fallback = document.getElementById('logo-fallback');
+                  if (fallback) fallback.style.display = 'flex';
+                }}
+              />
+              <div id="logo-fallback" className="hidden flex-col items-center justify-center text-center">
+                 <span className="text-3xl font-bold text-inpsy-cyan">InPsy</span>
+                 <span className="text-xs text-white tracking-widest">TECH</span>
+              </div>
+           </div>
+        </div>
+
+        {/* Text Hierarchy */}
+        <div className="text-center space-y-3">
+          <h1 className="text-4xl font-bold text-white tracking-tight drop-shadow-md">
             InPsytech
           </h1>
+          <h2 className="text-xl text-inpsy-cyan/90 font-medium tracking-[0.2em] uppercase">
+            乾瞻科技
+          </h2>
+        </div>
+
+        {/* Description Tag */}
+        <div className="px-6 py-2 rounded-full bg-white/5 border border-white/10 backdrop-blur-md">
+           <p className="text-sm text-gray-300">
+             Interactive Quiz Challenge
+           </p>
         </div>
       </div>
-      
-      <div className="space-y-2">
-        <h2 className="text-xl md:text-2xl text-inpsy-text font-bold tracking-wider">
-          乾瞻科技互動挑戰賽
-        </h2>
-        <p className="text-inpsy-cyan/80 text-lg italic">Insight the Future</p>
-      </div>
 
-      <div className="bg-inpsy-accent/50 p-6 rounded-lg border-l-4 border-inpsy-cyan max-w-md mx-auto backdrop-blur-sm shadow-lg">
-        <p className="text-lg leading-relaxed">
-          請回答 5 個關於公司的關鍵問題，測試您對 <span className="text-inpsy-cyan font-bold">InPsytech</span> 的了解程度！
-        </p>
-      </div>
+      {/* Bottom Section: Action */}
+      <div className="w-full pb-8 space-y-6">
+        
+        {/* iOS-style Action Button */}
+        <button
+          onClick={onStart}
+          className="w-full group relative flex items-center justify-between p-1 pr-2 bg-white/5 hover:bg-white/10 border border-white/10 rounded-[2rem] backdrop-blur-md transition-all duration-300 hover:scale-[1.02] active:scale-[0.98]"
+        >
+           {/* Swipe indicator visual */}
+           <div className="h-14 w-14 bg-inpsy-cyan rounded-full flex items-center justify-center shadow-[0_0_15px_rgba(0,229,255,0.4)] group-hover:shadow-[0_0_25px_rgba(0,229,255,0.6)] transition-all">
+              <ChevronRight className="w-8 h-8 text-black ml-1" />
+           </div>
+           
+           <span className="flex-1 text-center text-xl font-semibold text-white tracking-wide pr-10">
+             開始挑戰
+           </span>
+        </button>
 
-      <button
-        onClick={onStart}
-        className="group relative px-8 py-4 bg-inpsy-dark text-white text-xl font-bold rounded-lg border border-inpsy-cyan overflow-hidden transition-all duration-300 hover:shadow-neon hover:text-inpsy-bg mt-4"
-      >
-        <div className="absolute inset-0 w-0 bg-inpsy-cyan transition-all duration-[250ms] ease-out group-hover:w-full opacity-100"></div>
-        <span className="relative flex items-center justify-center gap-2 font-sans">
-          開始挑戰 <Zap className="w-5 h-5" />
-        </span>
-      </button>
+        {/* Footer Info */}
+        <div className="text-center space-y-1">
+          <p className="text-[10px] text-gray-500 uppercase tracking-widest">
+            Insight the Future
+          </p>
+          <p className="text-[10px] text-gray-600">
+            v1.0.24 • iOS26 Design System
+          </p>
+        </div>
+      </div>
     </div>
   );
 };

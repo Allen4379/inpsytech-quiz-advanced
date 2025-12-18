@@ -44,7 +44,7 @@ const ResultScreen: React.FC<ResultScreenProps> = ({ score, onRestart }) => {
     <div className="flex flex-col items-center justify-center min-h-[60vh] text-center space-y-8 animate-fade-in w-full max-w-lg mx-auto font-sans">
       
       {/* Logo */}
-      <img src="/logo.png" alt="InPsytech" className="h-12 w-auto mb-4 opacity-90" />
+      <img src="/logo.png" alt="InPsytech" className="h-12 w-auto mb-4 opacity-90 object-contain" />
 
       <div className="relative">
         <div className="absolute -inset-6 bg-inpsy-cyan/20 blur-2xl rounded-full animate-pulse"></div>

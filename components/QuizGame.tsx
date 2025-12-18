@@ -41,7 +41,7 @@ const QuizGame: React.FC<QuizGameProps> = ({ onFinish }) => {
     <div className="w-full max-w-2xl mx-auto space-y-6 animate-fade-in-up font-sans">
       {/* Mini Header with Logo */}
       <div className="flex justify-center mb-2">
-         <img src="/logo.png" alt="InPsytech" className="h-8 md:h-10 w-auto opacity-80" />
+         <img src="/logo.png" alt="InPsytech" className="h-8 md:h-10 w-auto opacity-80 object-contain" />
       </div>
 
       {/* Progress Bar */}
