@@ -1,6 +1,5 @@
 import React from 'react';
-import { ChevronRight } from 'lucide-react';
-import { Logo } from './Logo';
+import { ChevronRight, Cpu } from 'lucide-react';
 
 interface StartScreenProps {
   onStart: () => void;
@@ -11,15 +10,46 @@ const StartScreen: React.FC<StartScreenProps> = ({ onStart }) => {
     <div className="flex flex-col h-full justify-between py-8 font-sans animate-fade-in relative">
       
       {/* Top Section: Branding */}
-      <div className="flex-1 flex flex-col items-center justify-center space-y-10">
+      <div className="flex-1 flex flex-col items-center justify-center space-y-8">
         
         {/* App Icon Container / Logo */}
         <div className="relative group cursor-default">
+           {/* Glow Effect */}
+           <div className="absolute -inset-1 bg-gradient-to-tr from-inpsy-cyan to-blue-600 rounded-[2.5rem] blur opacity-40 group-hover:opacity-60 transition duration-500"></div>
+           
            {/* Logo Box */}
-           <div className="relative w-48 h-48 bg-white/5 backdrop-blur-2xl rounded-[2.5rem] border border-white/10 flex flex-col items-center justify-center shadow-2xl overflow-hidden p-6 ring-1 ring-white/20">
-              <div className="absolute inset-0 bg-gradient-to-br from-inpsy-cyan/10 to-transparent opacity-50"></div>
-              <Logo variant="full" className="scale-110" />
+           <div className="relative w-44 h-44 bg-white/5 backdrop-blur-2xl rounded-[2.5rem] border border-white/10 flex items-center justify-center shadow-2xl overflow-hidden p-6 ring-1 ring-white/20">
+              <div className="absolute inset-0 bg-gradient-to-br from-inpsy-cyan/5 to-transparent opacity-50"></div>
+              
+              {/* Image Logo */}
+              <img 
+                src="/logo.png" 
+                alt="InPsytech Logo" 
+                className="w-full h-full object-contain drop-shadow-lg relative z-10"
+                onError={(e) => {
+                  e.currentTarget.style.display = 'none';
+                  const fallback = document.getElementById('logo-fallback');
+                  if (fallback) fallback.style.display = 'flex';
+                }}
+              />
+
+              {/* Fallback if image not found yet */}
+              <div id="logo-fallback" className="hidden flex-col items-center justify-center text-center absolute inset-0 z-0">
+                 <Cpu className="w-12 h-12 text-inpsy-cyan mb-2" />
+                 <span className="text-2xl font-bold text-white tracking-tighter">InPsy</span>
+                 <span className="text-[10px] text-inpsy-cyan tracking-[0.3em]">TECH</span>
+              </div>
            </div>
+        </div>
+
+        {/* Text Hierarchy */}
+        <div className="text-center space-y-2">
+          <h1 className="text-4xl font-bold text-white tracking-tight drop-shadow-md font-sans">
+            InPsy<span className="text-inpsy-cyan">tech</span>
+          </h1>
+          <h2 className="text-sm text-inpsy-cyan font-medium tracking-[0.5em] uppercase opacity-90">
+            乾瞻科技
+          </h2>
         </div>
 
         {/* Tagline */}

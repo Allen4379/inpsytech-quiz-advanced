@@ -2,7 +2,6 @@ import React, { useEffect } from 'react';
 import confetti from 'canvas-confetti';
 import { Trophy, RotateCcw } from 'lucide-react';
 import { QUESTIONS } from '../constants';
-import { Logo } from './Logo';
 
 interface ResultScreenProps {
   score: number;
@@ -47,7 +46,7 @@ const ResultScreen: React.FC<ResultScreenProps> = ({ score, onRestart }) => {
       {/* Small Logo Header */}
       <div className="flex items-center gap-2 opacity-80">
          <div className="w-6 h-6">
-            <Logo variant="icon-only" />
+            <img src="/logo.png" alt="Logo" className="w-full h-full object-contain" />
          </div>
          <span className="font-bold text-white tracking-widest text-sm">INPSYTECH</span>
       </div>

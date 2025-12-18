@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import { QUESTIONS } from '../constants';
-import { ArrowRight, CheckCircle2, XCircle, Lightbulb } from 'lucide-react';
-import { Logo } from './Logo';
+import { ArrowRight, CheckCircle2, XCircle, Lightbulb, Cpu } from 'lucide-react';
 
 interface QuizGameProps {
   onFinish: (score: number) => void;
@@ -44,8 +43,18 @@ const QuizGame: React.FC<QuizGameProps> = ({ onFinish }) => {
       <div className="flex items-center justify-between px-2 pt-2">
          {/* Small Logo */}
          <div className="flex items-center gap-2 bg-white/5 px-3 py-1.5 rounded-full border border-white/5 backdrop-blur-sm">
-            <div className="w-5 h-5">
-              <Logo variant="icon-only" />
+            <div className="w-5 h-5 flex items-center justify-center">
+               <img 
+                 src="/logo.png" 
+                 alt="Logo" 
+                 className="w-full h-full object-contain"
+                 onError={(e) => {
+                    e.currentTarget.style.display = 'none';
+                    e.currentTarget.parentElement?.classList.add('hidden'); // Hide container if image fails
+                 }} 
+               />
+               {/* Fallback Icon hidden by default, shown via CSS if img fails logic was complex, keeping simple here */}
+               <Cpu className="w-full h-full text-inpsy-cyan hidden" /> 
             </div>
             <span className="font-bold text-white text-sm tracking-wide">InPsytech</span>
          </div>
