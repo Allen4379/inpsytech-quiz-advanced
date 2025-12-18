@@ -1,5 +1,5 @@
 import React from 'react';
-import { ChevronRight, Cpu } from 'lucide-react';
+import { ChevronRight, Cpu, Clapperboard } from 'lucide-react';
 
 interface StartScreenProps {
   onStart: () => void;
@@ -80,11 +80,14 @@ const StartScreen: React.FC<StartScreenProps> = ({ onStart }) => {
         </button>
 
         {/* Footer Info */}
-        <div className="text-center space-y-1 opacity-50">
-          <p className="text-[10px] text-gray-400 uppercase tracking-widest font-medium">
-            Insight the Future
+        <div className="text-center space-y-3 opacity-60">
+          <div className="flex items-center justify-center gap-2 text-inpsy-cyan/80">
+              <Clapperboard className="w-3 h-3" />
+              <span className="text-[10px] tracking-wider font-medium">電影欣賞會限定活動</span>
+          </div>
+          <p className="text-[10px] text-gray-500 uppercase tracking-widest font-medium">
+             Sponsored by InPsytech
           </p>
-          <div className="w-10 h-1 bg-white/10 rounded-full mx-auto mt-4"></div>
         </div>
       </div>
     </div>
