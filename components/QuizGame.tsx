@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { QUESTIONS } from '../constants';
-import { ArrowRight, CheckCircle2, XCircle, Lightbulb, Cpu } from 'lucide-react';
+import { ArrowRight, CheckCircle2, XCircle, Lightbulb, Cpu, Sprout } from 'lucide-react';
 
 interface QuizGameProps {
   onFinish: (score: number) => void;
@@ -42,7 +42,7 @@ const QuizGame: React.FC<QuizGameProps> = ({ onFinish }) => {
       {/* Header Area */}
       <div className="flex items-center justify-between px-2 pt-2">
          {/* Small Logo */}
-         <div className="flex items-center gap-2 bg-white/5 px-3 py-1.5 rounded-full border border-white/5 backdrop-blur-sm">
+         <div className="flex items-center gap-2 bg-black/40 px-3 py-1.5 rounded-full border border-inpsy-cyan/30 backdrop-blur-md shadow-bio">
             <div className="w-5 h-5 flex items-center justify-center">
                <img 
                  src="/logo.png" 
@@ -50,36 +50,40 @@ const QuizGame: React.FC<QuizGameProps> = ({ onFinish }) => {
                  className="w-full h-full object-contain"
                  onError={(e) => {
                     e.currentTarget.style.display = 'none';
-                    e.currentTarget.parentElement?.classList.add('hidden'); // Hide container if image fails
                  }} 
                />
-               {/* Fallback Icon hidden by default, shown via CSS if img fails logic was complex, keeping simple here */}
                <Cpu className="w-full h-full text-inpsy-cyan hidden" /> 
             </div>
             <span className="font-bold text-white text-sm tracking-wide">InPsytech</span>
          </div>
-         <div className="text-xs font-semibold text-inpsy-cyan/90 bg-inpsy-cyan/10 px-3 py-1.5 rounded-full border border-inpsy-cyan/20">
-            {currentQIndex + 1} / {QUESTIONS.length}
+         <div className="text-xs font-bold text-inpsy-purple bg-inpsy-purple/10 px-3 py-1.5 rounded-full border border-inpsy-purple/40 shadow-[0_0_10px_rgba(168,85,247,0.2)]">
+            {currentQIndex + 1} <span className="text-gray-500">/</span> {QUESTIONS.length}
          </div>
       </div>
 
-      {/* Progress Bar */}
+      {/* Progress Bar - Neural Strand */}
       <div className="w-full px-2">
-        <div className="w-full h-1 bg-white/10 rounded-full overflow-hidden">
+        <div className="w-full h-1.5 bg-gray-800 rounded-full overflow-hidden border border-white/5 relative">
           <div 
-            className="h-full bg-gradient-to-r from-inpsy-cyan to-blue-500 transition-all duration-500 ease-out shadow-[0_0_8px_#00E5FF]"
+            className="h-full bg-gradient-to-r from-inpsy-cyan via-blue-500 to-inpsy-purple transition-all duration-500 ease-out shadow-[0_0_10px_#00ffff]"
             style={{ width: `${((currentQIndex + 1) / QUESTIONS.length) * 100}%` }}
           />
+          {/* Sparkle on the end of the bar */}
+          <div 
+             className="absolute top-0 bottom-0 w-2 h-full bg-white blur-[2px] transition-all duration-500"
+             style={{ left: `calc(${((currentQIndex + 1) / QUESTIONS.length) * 100}% - 4px)` }}
+          ></div>
         </div>
       </div>
       
       {/* Scrollable Content Area */}
       <div className="flex-1 overflow-y-auto no-scrollbar pb-24 px-2">
           {/* Question Card */}
-          <div className="bg-white/5 p-6 rounded-[1.5rem] border border-white/10 shadow-xl backdrop-blur-md relative overflow-hidden">
-            <div className="absolute top-0 right-0 w-32 h-32 bg-inpsy-cyan/5 rounded-full blur-2xl -mr-10 -mt-10 pointer-events-none"></div>
+          <div className="bg-black/30 p-6 rounded-[1.5rem] border border-inpsy-cyan/20 shadow-glass backdrop-blur-xl relative overflow-hidden group">
+            {/* Holographic corner */}
+            <div className="absolute top-0 right-0 w-20 h-20 bg-gradient-to-bl from-inpsy-cyan/20 to-transparent rounded-bl-3xl border-b border-l border-inpsy-cyan/10"></div>
             
-            <h3 className="text-lg md:text-xl font-bold text-white mb-6 leading-relaxed relative z-10">
+            <h3 className="text-lg md:text-xl font-bold text-white mb-6 leading-relaxed relative z-10 drop-shadow-md">
               {currentQuestion.q}
             </h3>
 
@@ -90,16 +94,16 @@ const QuizGame: React.FC<QuizGameProps> = ({ onFinish }) => {
 
                 if (showResult) {
                   if (option === currentQuestion.answer) {
-                    buttonStyle = "bg-green-500/20 border-green-500/50 text-green-100 shadow-[0_0_15px_rgba(74,222,128,0.1)]";
-                    icon = <CheckCircle2 className="w-5 h-5 text-green-400" />;
+                    buttonStyle = "bg-green-500/20 border-green-400 text-green-100 shadow-[0_0_15px_rgba(74,222,128,0.2)]";
+                    icon = <CheckCircle2 className="w-5 h-5 text-green-400 animate-pulse" />;
                   } else if (option === selectedOption) {
-                    buttonStyle = "bg-red-500/20 border-red-500/50 text-red-100";
+                    buttonStyle = "bg-red-500/20 border-red-500 text-red-100";
                     icon = <XCircle className="w-5 h-5 text-red-400" />;
                   } else {
-                    buttonStyle = "border-transparent bg-black/20 text-gray-600 opacity-30";
+                    buttonStyle = "border-transparent bg-black/40 text-gray-600 opacity-40";
                   }
                 } else {
-                    buttonStyle = "bg-white/5 border-white/10 hover:bg-white/10 active:bg-inpsy-cyan active:text-black active:border-inpsy-cyan active:shadow-neon";
+                    buttonStyle = "bg-white/5 border-white/10 hover:bg-inpsy-cyan/10 hover:border-inpsy-cyan/50 hover:text-inpsy-cyan active:bg-inpsy-cyan/20 active:border-inpsy-cyan";
                 }
 
                 return (
@@ -120,16 +124,19 @@ const QuizGame: React.FC<QuizGameProps> = ({ onFinish }) => {
           {/* Explanation & Feedback Section */}
           {showResult && (
             <div className="space-y-4 animate-fade-in py-4">
-              <div className={`p-5 rounded-[1.25rem] border border-l-4 backdrop-blur-md shadow-lg ${isCorrect ? 'bg-green-950/40 border-green-500/30 border-l-green-500' : 'bg-red-950/40 border-red-500/30 border-l-red-500'}`}>
-                <div className="flex items-center gap-2 mb-3">
+              <div className={`p-5 rounded-[1.25rem] border backdrop-blur-md shadow-lg relative overflow-hidden ${isCorrect ? 'bg-green-950/40 border-green-500/30' : 'bg-red-950/40 border-red-500/30'}`}>
+                {/* Organic overlay */}
+                <div className="absolute inset-0 opacity-10 bg-[url('https://www.transparenttextures.com/patterns/cubes.png')]"></div>
+                
+                <div className="flex items-center gap-2 mb-3 relative z-10">
                    {isCorrect ? <CheckCircle2 className="w-5 h-5 text-green-400"/> : <XCircle className="w-5 h-5 text-red-400"/>}
                    <span className={`font-bold text-base ${isCorrect ? 'text-green-400' : 'text-red-400'}`}>
-                      {isCorrect ? '答對了！ Correct!' : '答錯了！ Incorrect'}
+                      {isCorrect ? '連結成功！ Connection Established!' : '連結失敗！ Connection Lost'}
                    </span>
                 </div>
                 
-                <div className="flex items-start gap-3">
-                  <Lightbulb className="w-5 h-5 shrink-0 mt-0.5 text-yellow-400/90" />
+                <div className="flex items-start gap-3 relative z-10">
+                  <Sprout className="w-5 h-5 shrink-0 mt-0.5 text-inpsy-cyan" />
                   <p className="text-gray-200 leading-relaxed text-sm">
                     {currentQuestion.explanation}
                   </p>
@@ -139,9 +146,9 @@ const QuizGame: React.FC<QuizGameProps> = ({ onFinish }) => {
               {/* Next Button */}
               <button
                 onClick={handleNext}
-                className="w-full py-4 bg-inpsy-cyan text-inpsy-bg font-bold text-lg rounded-[1.5rem] shadow-[0_0_20px_rgba(0,229,255,0.4)] active:scale-[0.98] transition-all flex items-center justify-center gap-2 hover:bg-white"
+                className="w-full py-4 bg-gradient-to-r from-inpsy-cyan to-blue-500 text-black font-bold text-lg rounded-[1.5rem] shadow-bio active:scale-[0.98] transition-all flex items-center justify-center gap-2 hover:brightness-110"
               >
-                {currentQIndex < QUESTIONS.length - 1 ? "下一題 Next Question" : "查看結果 View Result"} 
+                {currentQIndex < QUESTIONS.length - 1 ? "下一題 Next Node" : "查看結果 View Result"} 
                 <ArrowRight className="w-5 h-5" />
               </button>
             </div>
