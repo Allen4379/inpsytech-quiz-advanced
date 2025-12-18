@@ -2,10 +2,13 @@
 <html lang="zh-TW">
   <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+    <meta name="theme-color" content="#0B192E" />
     <title>乾瞻科技 InPsytech - 互動挑戰</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Noto+Sans+TC:wght@400;500;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Noto+Sans+TC:wght@400;500;700&display=swap" rel="stylesheet">
     <script>
       tailwind.config = {
         theme: {
@@ -29,6 +32,9 @@
             },
             backgroundImage: {
               'glass-gradient': 'linear-gradient(135deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0))',
+            },
+            animation: {
+              'pulse-slow': 'pulse 3s cubic-bezier(0.4, 0, 0.6, 1) infinite',
             }
           }
         }
@@ -41,6 +47,12 @@
         font-family: "Inter", "Noto Sans TC", sans-serif;
         -webkit-font-smoothing: antialiased;
         -moz-osx-font-smoothing: grayscale;
+        overscroll-behavior-y: none; /* Prevent pull-to-refresh on mobile */
+      }
+      /* Hide scrollbar for clean app look */
+      ::-webkit-scrollbar {
+        width: 0px;
+        background: transparent;
       }
     </style>
   <script type="importmap">
