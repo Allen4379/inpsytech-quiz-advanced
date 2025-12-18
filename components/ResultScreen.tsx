@@ -41,8 +41,11 @@ const ResultScreen: React.FC<ResultScreenProps> = ({ score, onRestart }) => {
   }, []);
 
   return (
-    <div className="flex flex-col items-center justify-center min-h-[60vh] text-center space-y-8 animate-fade-in w-full max-w-lg mx-auto">
+    <div className="flex flex-col items-center justify-center min-h-[60vh] text-center space-y-8 animate-fade-in w-full max-w-lg mx-auto font-sans">
       
+      {/* Logo */}
+      <img src="/logo.png" alt="InPsytech" className="h-12 w-auto mb-4 opacity-90" />
+
       <div className="relative">
         <div className="absolute -inset-6 bg-inpsy-cyan/20 blur-2xl rounded-full animate-pulse"></div>
         <div className="relative bg-inpsy-dark p-6 rounded-full border-4 border-inpsy-cyan shadow-neon">
@@ -52,7 +55,7 @@ const ResultScreen: React.FC<ResultScreenProps> = ({ score, onRestart }) => {
 
       <div className="space-y-2">
         <h2 className="text-3xl font-bold text-white">挑戰完成！</h2>
-        <p className="text-inpsy-cyan text-lg">InPsytech Challenge Completed</p>
+        <p className="text-inpsy-cyan text-lg">Challenge Completed</p>
       </div>
 
       <div className="w-full bg-inpsy-dark/50 p-8 rounded-xl border border-inpsy-cyan/30 backdrop-blur-sm">
@@ -87,7 +90,7 @@ const ResultScreen: React.FC<ResultScreenProps> = ({ score, onRestart }) => {
           className="w-full py-4 bg-transparent border-2 border-inpsy-cyan text-inpsy-cyan font-bold text-lg rounded-lg hover:bg-inpsy-cyan hover:text-black transition-all duration-300 flex items-center justify-center gap-2"
         >
           <RotateCcw className="w-5 h-5" />
-          重新挑戰
+          重新挑戰 Restart
         </button>
 
         <div className="pt-8 flex items-center justify-center gap-2 text-gray-600 text-xs">

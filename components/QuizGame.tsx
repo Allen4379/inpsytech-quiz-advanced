@@ -13,8 +13,7 @@ const QuizGame: React.FC<QuizGameProps> = ({ onFinish }) => {
   const [selectedOption, setSelectedOption] = useState<string | null>(null);
 
   const currentQuestion = QUESTIONS[currentQIndex];
-  const progress = ((currentQIndex) / QUESTIONS.length) * 100;
-
+  
   const handleOptionClick = (option: string) => {
     if (showResult) return;
     
@@ -36,8 +35,15 @@ const QuizGame: React.FC<QuizGameProps> = ({ onFinish }) => {
     }
   };
 
+  const isCorrect = selectedOption === currentQuestion.answer;
+
   return (
-    <div className="w-full max-w-2xl mx-auto space-y-6 animate-fade-in-up">
+    <div className="w-full max-w-2xl mx-auto space-y-6 animate-fade-in-up font-sans">
+      {/* Mini Header with Logo */}
+      <div className="flex justify-center mb-2">
+         <img src="/logo.png" alt="InPsytech" className="h-8 md:h-10 w-auto opacity-80" />
+      </div>
+
       {/* Progress Bar */}
       <div className="w-full h-2 bg-inpsy-dark rounded-full overflow-hidden border border-inpsy-accent">
         <div 
@@ -46,7 +52,7 @@ const QuizGame: React.FC<QuizGameProps> = ({ onFinish }) => {
         />
       </div>
       
-      <div className="flex justify-between text-sm text-inpsy-cyan font-mono">
+      <div className="flex justify-between text-sm text-inpsy-cyan font-bold">
         <span>Question {currentQIndex + 1}</span>
         <span>{QUESTIONS.length} Total</span>
       </div>
@@ -65,15 +71,15 @@ const QuizGame: React.FC<QuizGameProps> = ({ onFinish }) => {
             if (showResult) {
               if (option === currentQuestion.answer) {
                 // Correct Answer Style
-                buttonStyle = "bg-green-500/20 border-green-400 text-green-300 shadow-[0_0_15px_rgba(74,222,128,0.3)]";
+                buttonStyle = "bg-green-900/40 border-green-400 text-green-100 shadow-[0_0_10px_rgba(74,222,128,0.2)]";
                 icon = <CheckCircle2 className="w-5 h-5 text-green-400" />;
               } else if (option === selectedOption) {
                 // Wrong Selected Style
-                buttonStyle = "bg-red-500/20 border-red-400 text-red-300";
+                buttonStyle = "bg-red-900/40 border-red-400 text-red-100";
                 icon = <XCircle className="w-5 h-5 text-red-400" />;
               } else {
                 // Unselected options
-                buttonStyle = "border-inpsy-dark bg-inpsy-dark/30 text-gray-500 opacity-50";
+                buttonStyle = "border-inpsy-dark bg-inpsy-dark/30 text-gray-500 opacity-30";
               }
             } else {
                 // Default active state
@@ -87,7 +93,7 @@ const QuizGame: React.FC<QuizGameProps> = ({ onFinish }) => {
                 onClick={() => handleOptionClick(option)}
                 className={`w-full text-left p-4 rounded-lg border transition-all duration-300 flex items-center justify-between group ${buttonStyle}`}
               >
-                <span className="font-medium text-lg">{option}</span>
+                <span className="font-medium text-lg font-sans">{option}</span>
                 {icon}
               </button>
             );
@@ -95,15 +101,25 @@ const QuizGame: React.FC<QuizGameProps> = ({ onFinish }) => {
         </div>
       </div>
 
-      {/* Explanation & Next Button */}
+      {/* Explanation & Feedback Section */}
       {showResult && (
         <div className="space-y-6 animate-fade-in">
-          <div className="bg-inpsy-accent p-5 rounded-lg border-l-4 border-inpsy-cyan shadow-lg">
+          {/* Feedback Card */}
+          <div className={`p-5 rounded-lg border-l-4 shadow-lg backdrop-blur-md ${isCorrect ? 'bg-green-950/40 border-green-500' : 'bg-red-950/40 border-red-500'}`}>
+            {/* Header: Correct/Wrong */}
+            <h4 className={`text-xl font-bold mb-3 flex items-center gap-2 ${isCorrect ? 'text-green-400' : 'text-red-400'}`}>
+               {isCorrect ? <CheckCircle2 className="w-6 h-6"/> : <XCircle className="w-6 h-6"/>}
+               {isCorrect ? '答對了！ Correct!' : '答錯了！ Wrong!'}
+            </h4>
+            
+            {/* Divider */}
+            <div className={`h-px w-full mb-3 ${isCorrect ? 'bg-green-500/30' : 'bg-red-500/30'}`}></div>
+
+            {/* Explanation Content */}
             <div className="flex items-start gap-3">
-              <Lightbulb className="w-6 h-6 text-inpsy-cyan shrink-0 mt-1" />
+              <Lightbulb className={`w-5 h-5 shrink-0 mt-1 ${isCorrect ? 'text-green-400' : 'text-red-400'}`} />
               <div>
-                <h4 className="font-bold text-inpsy-cyan mb-2">💡 解析</h4>
-                <p className="text-gray-200 leading-relaxed text-sm md:text-base">
+                <p className="text-gray-200 leading-relaxed text-base font-sans">
                   {currentQuestion.explanation}
                 </p>
               </div>
@@ -112,9 +128,9 @@ const QuizGame: React.FC<QuizGameProps> = ({ onFinish }) => {
 
           <button
             onClick={handleNext}
-            className="w-full py-4 bg-inpsy-cyan text-inpsy-bg font-bold text-xl rounded-lg shadow-neon hover:shadow-neon-hover hover:bg-white transition-all duration-300 flex items-center justify-center gap-2"
+            className="w-full py-4 bg-inpsy-cyan text-inpsy-bg font-bold text-xl rounded-lg shadow-neon hover:shadow-neon-hover hover:bg-white transition-all duration-300 flex items-center justify-center gap-2 font-sans"
           >
-            {currentQIndex < QUESTIONS.length - 1 ? "下一題" : "查看結果"} 
+            {currentQIndex < QUESTIONS.length - 1 ? "下一題 Next" : "查看結果 View Result"} 
             <ArrowRight className="w-6 h-6" />
           </button>
         </div>
