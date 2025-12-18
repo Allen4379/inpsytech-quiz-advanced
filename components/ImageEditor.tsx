@@ -30,14 +30,15 @@ const ImageEditor: React.FC<ImageEditorProps> = ({ onBack }) => {
 
     setIsLoading(true);
     try {
-      // 1. Prepare Base64 string (remove data URL prefix)
+      // 1. Extract correct mime type (e.g., image/jpeg, image/png)
+      const mimeType = selectedImage.split(';')[0].split(':')[1];
+      // 2. Prepare Base64 string (remove data URL prefix)
       const base64Data = selectedImage.split(',')[1];
       
-      // 2. Initialize API
+      // 3. Initialize API
       const ai = new GoogleGenAI({ apiKey: process.env.API_KEY });
       
-      // 3. Call Gemini 2.5 Flash Image
-      // Note: We use the text prompt + image to generate a new image
+      // 4. Call Gemini 2.5 Flash Image
       const response = await ai.models.generateContent({
         model: 'gemini-2.5-flash-image',
         contents: {
@@ -45,7 +46,7 @@ const ImageEditor: React.FC<ImageEditorProps> = ({ onBack }) => {
             { 
               inlineData: { 
                 data: base64Data, 
-                mimeType: 'image/png' // Assuming png/jpeg, API handles standard types
+                mimeType: mimeType 
               } 
             },
             { text: prompt }
@@ -53,7 +54,7 @@ const ImageEditor: React.FC<ImageEditorProps> = ({ onBack }) => {
         }
       });
 
-      // 4. Extract Result
+      // 5. Extract Result
       // The response for image generation usually comes in parts.
       let resultImage = null;
       if (response.candidates && response.candidates[0].content && response.candidates[0].content.parts) {
@@ -68,12 +69,12 @@ const ImageEditor: React.FC<ImageEditorProps> = ({ onBack }) => {
       if (resultImage) {
         setGeneratedImage(resultImage);
       } else {
-        alert("AI did not return an image. Try a different prompt.");
+        alert("AI 無法生成圖片，請嘗試不同的指令。");
       }
 
     } catch (error) {
       console.error("Generation failed:", error);
-      alert("生成失敗，請稍後再試。");
+      alert("生成失敗，請檢查 API Key 或網路連線。");
     } finally {
       setIsLoading(false);
     }

@@ -1,5 +1,5 @@
 import React from 'react';
-import { ChevronRight, Cpu, Clapperboard, Sparkles, Wand2 } from 'lucide-react';
+import { ChevronRight, Cpu, Clapperboard, Sparkles, Wand2, Ticket } from 'lucide-react';
 
 interface StartScreenProps {
   onStart: () => void;
@@ -13,6 +13,14 @@ const StartScreen: React.FC<StartScreenProps> = ({ onStart, onImageLab }) => {
       {/* Top Section: Branding */}
       <div className="flex-1 flex flex-col items-center justify-center space-y-6">
         
+        {/* Event Badge */}
+        <div className="flex items-center gap-2 bg-gradient-to-r from-inpsy-purple/20 to-inpsy-cyan/20 px-4 py-1.5 rounded-full border border-white/10 backdrop-blur-md shadow-[0_0_15px_rgba(168,85,247,0.3)] animate-float">
+             <Clapperboard className="w-4 h-4 text-inpsy-cyan" />
+             <span className="text-[11px] text-white tracking-widest font-bold uppercase">
+               電影欣賞會 • 特別企劃
+             </span>
+        </div>
+
         {/* App Icon Container / Logo */}
         <div className="relative group cursor-default">
            {/* Organic Glow */}
@@ -51,17 +59,15 @@ const StartScreen: React.FC<StartScreenProps> = ({ onStart, onImageLab }) => {
           </h2>
         </div>
 
-        {/* Tagline Badge */}
-        <div className="px-4 py-1.5 rounded-full bg-inpsy-cyan/10 border border-inpsy-cyan/30 backdrop-blur-md shadow-lg flex items-center gap-2">
-             <div className="w-2 h-2 rounded-full bg-inpsy-cyan animate-pulse shadow-[0_0_8px_#00ffff]"></div>
-             <p className="text-[10px] text-inpsy-cyan tracking-widest font-semibold uppercase">
-               Neural Network Online
-             </p>
+        <div className="bg-black/40 px-4 py-2 rounded-lg border border-inpsy-cyan/20 text-xs text-gray-300 text-center max-w-[280px]">
+           <span className="text-inpsy-cyan font-bold block mb-1">任務說明 Mission</span>
+           完成挑戰即可獲得<br/>
+           <span className="text-white font-bold">🍿 爆米花與飲料兌換券 🥤</span>
         </div>
       </div>
 
       {/* Bottom Section: Actions */}
-      <div className="w-full space-y-4 pb-4 px-2">
+      <div className="w-full space-y-3 pb-2 px-2">
         
         {/* Main Game Button */}
         <button
@@ -77,7 +83,7 @@ const StartScreen: React.FC<StartScreenProps> = ({ onStart, onImageLab }) => {
            </span>
         </button>
 
-        {/* AI Image Lab Button (New Feature) */}
+        {/* AI Image Lab Button */}
         <button
           onClick={onImageLab}
           className="w-full group relative flex items-center justify-between p-1.5 bg-black/40 border border-inpsy-purple/40 rounded-full backdrop-blur-xl transition-all duration-300 hover:border-inpsy-purple hover:shadow-bio active:scale-[0.98]"
@@ -91,19 +97,13 @@ const StartScreen: React.FC<StartScreenProps> = ({ onStart, onImageLab }) => {
            </span>
         </button>
 
-        {/* Footer Info */}
-        <div className="text-center space-y-2 opacity-60 mt-4">
-          <div className="flex items-center justify-center gap-2 text-inpsy-cyan/80">
-              <Clapperboard className="w-3 h-3" />
-              <span className="text-[10px] tracking-wider font-medium">電影欣賞會限定</span>
-          </div>
-          <div className="flex justify-center gap-1">
-             <Sparkles className="w-2 h-2 text-inpsy-purple" />
-             <p className="text-[9px] text-gray-500 uppercase tracking-widest font-medium">
-                InPsytech x Avatar
-             </p>
-             <Sparkles className="w-2 h-2 text-inpsy-purple" />
-          </div>
+        {/* Footer Sponsor */}
+        <div className="flex items-center justify-center gap-2 pt-2 opacity-70">
+           <Sparkles className="w-3 h-3 text-inpsy-cyan" />
+           <span className="text-[10px] text-inpsy-cyan tracking-widest uppercase font-bold">
+              Powered by Egis Group
+           </span>
+           <Sparkles className="w-3 h-3 text-inpsy-cyan" />
         </div>
       </div>
     </div>
